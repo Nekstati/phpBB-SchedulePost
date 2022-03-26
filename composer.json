@@ -1,0 +1,26 @@
+{
+	"name": "nekstati/schedulePost",
+	"type": "phpbb-extension",
+	"description": "Allows to publish topics on a schedule at specified date and time.",
+	"homepage": "https://www.phpbbguru.net/community/",
+	"version": "1.0.0",
+	"time": "2021-08-01",
+	"license": "GPL-2.0",
+	"authors": [
+        {
+            "name": "Nekstati",
+            "email": "",
+            "homepage": "https://www.phpbbguru.net",
+            "role": "Developer"
+        }
+	],
+	"require": {
+		"php": ">=7.1"
+	},
+	"extra": {
+		"display-name": "💡 Schedule post",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.2.8"
+		}
+	}
+}

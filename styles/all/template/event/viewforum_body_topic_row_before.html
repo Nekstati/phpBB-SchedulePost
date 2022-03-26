@@ -1,0 +1,48 @@
+{% if scheduled_topics %}
+
+<div class="forumbg scheduled-topics{{ SCHEDULE_POST_ALT_COLORS ? ' alt-colors' : '' }}"><div class="inner">
+	<ul class="topiclist">
+		<li class="header">
+			<dl class="row-item">
+				<dt><div class="list-inner">{L_SCHEDULE_POST_TITLE}</div></dt>
+				<dd class="lastpost"><span>{L_SCHEDULE_POST_TIME}</span></dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="topiclist topics">
+	{% for t in scheduled_topics %}
+		<li class="row {{ t.S_ROW_COUNT is even ? 'bg1' : 'bg2' }}">
+			<dl class="row-item {t.IMG}">
+				<dt{% if t.ICON %} style="background-image: url('{{ SCHEDULE_POST_ALT_ICONS ? T_ICONS_PATH : SCHEDULE_POST_ICO_PATH }}{t.ICON}'); background-repeat: no-repeat;"{% endif %}>
+					<div class="list-inner">
+						{% if t.URL_VIEW %}<a href="{t.URL_VIEW}" class="topictitle">{t.TITLE}</a>{% else %}{t.TITLE}{% endif %}
+						<br />
+						{% if not S_IS_BOT %}
+							<div class="responsive-show" style="display: none;">
+								{L_POST_BY_AUTHOR} {t.AUTHOR} &laquo; {L_SCHEDULE_POST_TIME}{L_COLON} {t.TIME}
+							</div>
+						{% endif %}
+						<div class="topic-poster responsive-hide left-box">
+							{% if t.HAS_POLL %}<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>{% endif %}
+							{% if t.HAS_ATTACH %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i>{% endif %}
+							{L_POST_BY_AUTHOR} {t.AUTHOR} &raquo; <time>{t.CREATION_TIME}</time>
+						</div>
+					</div>
+				</dt>
+				<dd class="lastpost">
+					<span>
+						<dfn>{L_SCHEDULE_POST_TIME} </dfn><time>{t.TIME}</time>
+						{% if t.URL_PUBLISH %}<a href="{t.URL_PUBLISH}" title="{L_SCHEDULE_POST_PUBLISH_TOOLTIP}" class="button-icon-only" onclick="return confirm('{L_SCHEDULE_POST_PUBLISH_CONFIRM}');"><i class="icon fa-check fa-fw" aria-hidden="true"></i></a>{% endif %}
+						{#
+						<a href="{t.URL_DELETE}" title="{L_BUTTON_DELETE}" class="button-icon-only"><i class="icon fa-times fa-fw" aria-hidden="true"></i></a>
+						<a href="{t.URL_EDIT}" title="{L_BUTTON_EDIT}" class="button-icon-only"><i class="icon fa-pencil fa-fw" aria-hidden="true"></i></a>
+						#}
+					</span>
+				</dd>
+			</dl>
+		</li>
+	{% endfor %}
+	</ul>
+</div></div>
+
+{% endif %}

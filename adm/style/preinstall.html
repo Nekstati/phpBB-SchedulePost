@@ -1,0 +1,55 @@
+{% INCLUDE 'overall_header.html' %}
+
+<style>
+	.schedule-post-preinstall label {
+		display: block;
+		padding: 3px 0;
+		font-size: inherit;
+		overflow: hidden;
+		line-height: 1.2;
+	}
+	.schedule-post-preinstall b {
+		display: block;
+		margin: 24px 0 10px;
+	}
+	.schedule-post-preinstall input {
+		float: left;
+	}
+	.schedule-post-preinstall label span {
+		display: block;
+		margin-left: 20px;
+	}
+</style>
+
+<a id="maincontent"></a>
+
+<h1>{{ lang('EXTENSIONS_ADMIN') }}</h1>
+
+<p>{{ lang('EXTENSIONS_EXPLAIN') }}</p>
+<p>{{ lang('EXTENSION_ENABLE_EXPLAIN') }}</p>
+
+<form method="post" action="{{ U_ACTION }}">
+	<fieldset class="schedule-post-preinstall">
+		<h2>{{ lang('SCHEDULE_POST_INSTALL_TITLE') }}</h2>
+		<p>
+			<b>{{ lang('SCHEDULE_POST_INSTALL_Q0') }}</b>
+			<label><input type="radio" name="cnf_schedule_post" value="0" class="radio" />    <span>{{ lang('SCHEDULE_POST_INSTALL_A0') }}</span></label>
+			<label><input type="radio" name="cnf_schedule_post" value="1" class="radio" checked="checked" />    <span>{{ lang('SCHEDULE_POST_INSTALL_A1') }}</span></label>
+			<label><input type="radio" name="cnf_schedule_post" value="2" class="radio" />    <span>{{ lang('SCHEDULE_POST_INSTALL_A2') }}</span></label>
+		</p>
+		<p>
+
+			<b>{{ lang('SCHEDULE_POST_INSTALL_Q1') }}</b>
+			<label><input type="radio" name="cnf_schedule_view" value="0" class="radio" />    <span>{{ lang('SCHEDULE_POST_INSTALL_A0') }}</span></label>
+			<label><input type="radio" name="cnf_schedule_view" value="1" class="radio" checked="checked" />    <span>{{ lang('SCHEDULE_POST_INSTALL_A1') }}</span></label>
+		</p>
+		{{ lang('SCHEDULE_POST_INSTALL_NOTES') }}
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" name="continue" value="{{ lang('EXTENSION_ENABLE') }}">
+		<input class="button2" type="submit" name="cancel" value="{{ lang('CANCEL') }}">
+	</fieldset>
+</form>
+
+{% INCLUDE 'overall_footer.html' %}

@@ -1,0 +1,7 @@
+{% if SCHEDULE_POST_VIEW && postrow.U_PUBLISH %}
+	<li>
+		<a href="{postrow.U_PUBLISH}" title="{L_SCHEDULE_POST_PUBLISH_TOOLTIP}" class="button button-icon-only" onclick="return confirm('{L_SCHEDULE_POST_PUBLISH_CONFIRM}');">
+			<i class="icon fa-check fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SCHEDULE_POST_PUBLISH}</span>
+		</a>
+	</li>
+{% endif %}

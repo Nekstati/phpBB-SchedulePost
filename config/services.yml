@@ -1,0 +1,48 @@
+services:
+
+    nekstati.schedulePost.listener:
+        class: nekstati\schedulePost\event\listener
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@request'
+            - '@routing.helper'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.table_prefix%'
+        tags:
+            - { name: event.listener }
+
+    nekstati.schedulePost.cron.task.publish:
+        class: nekstati\schedulePost\cron\publish
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.table_prefix%'
+        calls:
+            - [set_name, ['cron.task.nekstati_schedulePost']]
+        tags:
+            - { name: cron.task }
+
+    nekstati.schedulePost.controller.file:
+        class: nekstati\schedulePost\controller\file
+        arguments:
+            - '@config'
+            - '@dbal.conn'
+            - '@request'
+            - '@user'
+            - '%core.root_path%'
+
+    nekstati.schedulePost.controller.view:
+        class: nekstati\schedulePost\controller\view
+        arguments:
+            - '@config'
+            - '@dbal.conn'
+            - '@request'
+            - '@user'
+            - '%core.root_path%'

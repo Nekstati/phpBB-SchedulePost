@@ -1,0 +1,60 @@
+{% if SCHEDULE_POST_ALLOWED && !S_PRIVMSGS %}
+<dl style="clear: left;">
+	<dt><label for="schedule_post_time">{L_SCHEDULE_POST_TIME}:</label></dt>
+	<dd>
+		<div style="display: inline-block; margin-right: 10px">
+			<input type="date" name="schedule_post_time[d]" id="schedule_post_time" min="{SCHEDULE_POST_DATE_MIN}" max="{SCHEDULE_POST_DATE_MAX}" value="{SCHEDULE_POST_TIME_D}" class="inputbox autowidth" />&nbsp;
+			<input type="time" name="schedule_post_time[t]" min="00:00" max="23:59" value="{SCHEDULE_POST_TIME_T}" class="inputbox autowidth" />
+			<button onclick="this.form['schedule_post_time[d]'].value = ''; this.form['schedule_post_time[t]'].value = ''; return false;" class="schedule-post-clear-time" title="{L_SCHEDULE_POST_TIME_CLEAR}"><i class="icon fa-times-circle fa-fw"></i></button>
+			<input type="hidden" name="schedule_post_edit_item" value="{SCHEDULE_POST_EDIT_ITEM}" />
+			<input type="hidden" name="schedule_post_poster_id" value="{SCHEDULE_POST_POSTER_ID}" />
+			<input type="hidden" name="schedule_post_creation_time" value="{SCHEDULE_POST_CREATION_TIME}" />
+		</div>
+		<div style="display: inline-block; color: gray">
+			{L_SCHEDULE_POST_TIME_DESC}
+		</div>
+	</dd>
+</dl>
+{% endif %}
+
+{% if SCHEDULE_POST_ALLOWED && SCHEDULE_POST_EDIT_ITEM && !S_PRIVMSGS %}
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		let form = document.forms.postform;
+		let confirmed = false;
+		if (!form || !form.post || !form.schedule_post_time) return;
+		form.post.addEventListener('click', (event) => {
+			if (form.schedule_post_time.value == '' && !confirmed) {
+				event.preventDefault();
+				if (confirm('{LA_SCHEDULE_POST_TIME_CLEARED}')) {
+					confirmed = true;
+					event.currentTarget.click();
+				}
+			}
+		});
+	});
+</script>
+{% endif %}
+
+{# @TODO Remove if no Plupload issues #}
+{% if SCHEDULE_POST_ALLOWED && SCHEDULE_POST_EDIT_ITEM && SCHEDULE_POST_PLUPLOAD_DISABLED && !S_PRIVMSGS %}
+<script>
+	// Let "Place inline" buttons work with Plupload disabled
+	document.addEventListener('DOMContentLoaded', function() {
+		let form = document.forms.postform;
+		if (!form || !form.post || !form.schedule_post_time) return;
+		let files   = {{ SCHEDULE_POST_UPL_FILES }};
+		let reverse = {{ SCHEDULE_POST_UPL_FILES_ORDER }};
+		let buttons = form.querySelectorAll('.attach-row:not(.attach-row-tpl) .file-inline-bbcode');
+		if (reverse)
+			buttons = Array.from(buttons).reverse();
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].onclick = () => {
+				if (!files[i]) return;
+				insert_text('[attachment=' + i + ']' + files[i] + '[/attachment]');
+				form.message.focus();
+			};
+		}
+	});
+</script>
+{% endif %}

@@ -1,0 +1,7 @@
+nekstati_schedulePost_file:
+    path: /schedulepost/file
+    defaults: { _controller: nekstati.schedulePost.controller.file:send }
+
+nekstati_schedulePost_view:
+    path: /schedulepost/view
+    defaults: { _controller: nekstati.schedulePost.controller.view:view }
